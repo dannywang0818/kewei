@@ -6,6 +6,7 @@
 namespace Magento\Catalog\Block\Product;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Customer\Model\Context;
 
 /**
  * Product View block
@@ -64,6 +65,19 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
     protected $productRepository;
 
     /**
+     * @var \Magento\Customer\Model\Url
+     */
+    protected $_customerUrl;
+    /**
+     * Customer session
+     *
+     * @var \Magento\Framework\App\Http\Context
+     */
+    protected $httpContext;
+
+
+
+    /**
      * @param Context $context
      * @param \Magento\Framework\Url\EncoderInterface $urlEncoder
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -89,6 +103,8 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
         \Magento\Customer\Model\Session $customerSession,
         ProductRepositoryInterface $productRepository,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
+        \Magento\Customer\Model\Url $customerUrl,
+        \Magento\Framework\App\Http\Context $httpContext,
         array $data = []
     ) {
         $this->_productHelper = $productHelper;
@@ -100,6 +116,8 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
         $this->customerSession = $customerSession;
         $this->productRepository = $productRepository;
         $this->priceCurrency = $priceCurrency;
+        $this->_customerUrl = $customerUrl;
+        $this->httpContext = $httpContext;
         parent::__construct(
             $context,
             $data
@@ -107,6 +125,8 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
     }
 
     // @codingStandardsIgnoreEnd
+
+
 
     /**
      * Return wishlist widget options
@@ -118,6 +138,7 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
     {
         return ['productType' => $this->getProduct()->getTypeId()];
     }
+
 
     /**
      * Retrieve current product model
@@ -337,6 +358,17 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
         return $product ? $product->getIdentities() : [];
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getHref()
+    {
+        return $this->isLoggedIn()
+            ? $this->_customerUrl->getLogoutUrl()
+            : $this->_customerUrl->getLoginUrl();
+    }
+
     /**
      * Retrieve customer data object
      *
@@ -345,5 +377,10 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
     protected function getCustomerId()
     {
         return $this->customerSession->getCustomerId();
+    }
+
+    public function isLoggedIn()
+    {
+        return $this->httpContext->getValue(Context::CONTEXT_AUTH);
     }
 }
