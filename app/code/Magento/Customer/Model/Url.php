@@ -117,25 +117,11 @@ class Url
     public function getLoginUrlParams()
     {
         $params = [];
-        $referer = $this->getRequestReferrer();
-        if (!$referer
-            && !$this->scopeConfig->isSetFlag(
-                self::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD,
-                ScopeInterface::SCOPE_STORE
-            )
-            && !$this->customerSession->getNoReferer()
-            && $this->request->isGet()
-        ) {
-            $referer = $this->urlBuilder->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
-            $referer = $this->urlEncoder->encode($referer);
-        }
 
-        if ($referer) {
-            $params = [self::REFERER_QUERY_PARAM_NAME => $referer];
-        }
-
+        $params = $this->appendRefererParam($params);
         return $params;
     }
+
 
     /**
      * Retrieve customer login POST URL
@@ -191,7 +177,7 @@ class Url
      */
     public function getRegisterUrl()
     {
-        return $this->urlBuilder->getUrl('customer/account/create');
+        return $this->urlBuilder->getUrl('customer/account/create', $this->appendRefererParam([]));
     }
 
     /**
@@ -255,5 +241,31 @@ class Url
             return $referer;
         }
         return null;
+    }
+
+
+    private function appendRefererParam($params){
+        if ($params){
+            $params = [];
+        }
+
+        $referer = $this->getRequestReferrer();
+        if (!$referer
+            && !$this->scopeConfig->isSetFlag(
+                self::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD,
+                ScopeInterface::SCOPE_STORE
+            )
+            && !$this->customerSession->getNoReferer()
+            && $this->request->isGet()
+        ) {
+            $referer = $this->urlBuilder->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+            $referer = $this->urlEncoder->encode($referer);
+        }
+
+        if ($referer) {
+            $params[self::REFERER_QUERY_PARAM_NAME] = $referer;
+        }
+
+        return $params;
     }
 }
