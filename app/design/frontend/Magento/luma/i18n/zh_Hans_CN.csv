@@ -5085,7 +5085,7 @@ new products will be created. Use this step to customize images and price for yo
 "Create an Account","创建帐户",module,Magento_Customer
 "Set a New Password","设置新的密码",module,Magento_Customer
 "You have signed out and will go to our homepage in 5 seconds.","你已退出，在 5 秒钟后将转到我们的主页。",module,Magento_Customer
-"New Customers","过客",module,Magento_Customer
+"New Customers","新的顾客",module,Magento_Customer
 "Creating an account has many benefits: check out faster, keep more than one address, track orders and more.","创建帐户有很多好处: 更快地查阅，保持多个地址，跟踪订单和更多。",module,Magento_Customer
 "Company","地址",module,Magento_Customer
 "Fax","传真",module,Magento_Customer
@@ -5638,7 +5638,7 @@ Email template chosen based on theme fallback when ""Default"" option is selecte
 "Inactive","未激活",module,Magento_CustomerSegment
 "Apply To","应用给",module,Magento_CustomerSegment
 "Visitors and Registered Customers","游客和已登记的客户",module,Magento_CustomerSegment
-"Registered Customers","常客",module,Magento_CustomerSegment
+"Registered Customers","已注册的顾客",module,Magento_CustomerSegment
 "Visitors","访客",module,Magento_CustomerSegment
 "Please save this information to specify segmentation conditions.","请保存此信息指定分割的条件。",module,Magento_CustomerSegment
 "Matched Customers (%1)","匹配的客户 (%1)",module,Magento_CustomerSegment
