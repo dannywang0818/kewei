@@ -80,14 +80,15 @@ class Url
      * @param \Magento\Framework\Url\HostChecker|null $hostChecker
      */
     public function __construct(
-        Session $customerSession,
-        ScopeConfigInterface $scopeConfig,
-        RequestInterface $request,
-        UrlInterface $urlBuilder,
-        EncoderInterface $urlEncoder,
+        Session                                 $customerSession,
+        ScopeConfigInterface                    $scopeConfig,
+        RequestInterface                        $request,
+        UrlInterface                            $urlBuilder,
+        EncoderInterface                        $urlEncoder,
         \Magento\Framework\Url\DecoderInterface $urlDecoder = null,
-        \Magento\Framework\Url\HostChecker $hostChecker = null
-    ) {
+        \Magento\Framework\Url\HostChecker      $hostChecker = null
+    )
+    {
         $this->request = $request;
         $this->urlBuilder = $urlBuilder;
         $this->scopeConfig = $scopeConfig;
@@ -130,13 +131,7 @@ class Url
      */
     public function getLoginPostUrl()
     {
-        $params = [];
-        $referer = $this->getRequestReferrer();
-        if ($referer) {
-            $params = [
-                self::REFERER_QUERY_PARAM_NAME => $referer,
-            ];
-        }
+        $params = $this->createReferrerParam();
         return $this->urlBuilder->getUrl('customer/account/loginPost', $params);
     }
 
@@ -187,7 +182,8 @@ class Url
      */
     public function getRegisterPostUrl()
     {
-        return $this->urlBuilder->getUrl('customer/account/createpost');
+        $params = $this->createReferrerParam();
+        return $this->urlBuilder->getUrl('customer/account/createpost', $params);
     }
 
     /**
@@ -243,9 +239,22 @@ class Url
         return null;
     }
 
+    private function createReferrerParam()
+    {
+        $params = [];
+        $referer = $this->getRequestReferrer();
+        if ($referer) {
+            $params = [
+                self::REFERER_QUERY_PARAM_NAME => $referer,
+            ];
+        }
+        return $params;
+    }
 
-    private function appendRefererParam($params){
-        if ($params){
+
+    private function appendRefererParam($params)
+    {
+        if ($params) {
             $params = [];
         }
 
