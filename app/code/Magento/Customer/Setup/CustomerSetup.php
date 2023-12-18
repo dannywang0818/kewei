@@ -235,6 +235,15 @@ class CustomerSetup extends EavSetup
                         'system' => false,
                         'position' => 70,
                     ],
+                    'nickname' => [
+                        'type' => 'static',
+                        'label' => 'Nickname',
+                        'input' => 'text',
+                        'required' => true,
+                        'sort_order' => 71,
+                        'validate_rules' => '{"max_text_length":255,"min_text_length":1}',
+                        'position' => 71,
+                    ],
                     'email' => [
                         'type' => 'static',
                         'label' => 'Email',

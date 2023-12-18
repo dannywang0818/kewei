@@ -30,13 +30,15 @@
             "first_failure": true,
             "lock_expired": true,
             "lock_expires": true,
-            "session_cutoff": true
+            "session_cutoff": true,
+            "nickname": true
         },
         "index": {
             "CUSTOMER_ENTITY_STORE_ID": true,
             "CUSTOMER_ENTITY_WEBSITE_ID": true,
             "CUSTOMER_ENTITY_FIRSTNAME": true,
-            "CUSTOMER_ENTITY_LASTNAME": true
+            "CUSTOMER_ENTITY_LASTNAME": true,
+            "CUSTOMER_ENTITY_NICKNAME": true
         },
         "constraint": {
             "PRIMARY": true,

@@ -23,6 +23,7 @@ interface CustomerInterface extends \Magento\Framework\Api\CustomAttributesDataI
     const CREATED_IN = 'created_in';
     const DOB = 'dob';
     const EMAIL = 'email';
+    const NICKNAME = 'nickname';
     const FIRSTNAME = 'firstname';
     const GENDER = 'gender';
     const GROUP_ID = 'group_id';
@@ -191,6 +192,21 @@ interface CustomerInterface extends \Magento\Framework\Api\CustomAttributesDataI
      * @return $this
      */
     public function setEmail($email);
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname();
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     * @return $this
+     */
+    public function setNickname($nickname);
 
     /**
      * Get first name

@@ -141,6 +141,16 @@ class Customer extends \Magento\Framework\Api\AbstractExtensibleObject implement
     }
 
     /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickname()
+    {
+        return $this->_get(self::NICKNAME);
+    }
+
+    /**
      * Get gender
      *
      * @return string|null
@@ -368,6 +378,17 @@ class Customer extends \Magento\Framework\Api\AbstractExtensibleObject implement
     public function setEmail($email)
     {
         return $this->setData(self::EMAIL, $email);
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     * @return $this
+     */
+    public function setNickname($nickname)
+    {
+        return $this->setData(self::NICKNAME, $nickname);
     }
 
     /**

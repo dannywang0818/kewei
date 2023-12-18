@@ -241,6 +241,21 @@ $createAccountButtonViewModel = $block->getData('create_account_button_view_mode
         <legend class="legend"><span><?= $escaper->escapeHtml(__('Sign-in Information')) ?></span></legend>
         <br>
         <div class="field required">
+            <?php //顾客标识名  ?>
+            <label for="nickname" class="label"><span><?= $escaper->escapeHtml(__('Nickname')) ?></span></label>
+            <div class="control">
+                <input type="text"
+                       name="nickname"
+                       autocomplete="off"
+                       id="nickname"
+                       value="<?= $escaper->escapeHtmlAttr($block->getNickname()) ?>"
+                       title="<?= $escaper->escapeHtmlAttr(__('Nickname')) ?>"
+                       class="input-text"
+                       data-mage-init='{"mage/trim-input":{}}'
+                       data-validate="{required:true, 'rangelength': [5, 15], 'no-whitespace':true}">
+            </div>
+        </div>
+        <div class="field required">
             <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
                 <input type="email"
@@ -350,6 +365,9 @@ require([
     var ignore = {$ignore};
 
     dataForm.mage('validation', {
+            onfocusout: function (element) {
+                $(element).valid();
+            },
 script;
 if ($_dob->isEnabled()):
     $scriptString .= <<<script

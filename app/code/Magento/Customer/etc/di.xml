@@ -526,6 +526,7 @@
                     <item name="rp_token_created_at" xsi:type="string">customer</item>
                     <item name="store_id" xsi:type="string">customer</item>
                     <item name="suffix" xsi:type="string">customer</item>
+                    <item name="nickname" xsi:type="string">customer</item>
                     <item name="taxvat" xsi:type="string">customer</item>
                     <item name="updated_at" xsi:type="string">customer</item>
                     <item name="website_id" xsi:type="string">customer</item>

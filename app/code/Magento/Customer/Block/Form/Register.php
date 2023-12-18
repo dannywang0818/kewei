@@ -40,6 +40,8 @@ class Register extends \Magento\Directory\Block\Data
      */
     private $newsLetterConfig;
 
+    private $flagFactory;
+
     /**
      * Constructor
      *
@@ -59,19 +61,21 @@ class Register extends \Magento\Directory\Block\Data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Directory\Helper\Data $directoryHelper,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
-        \Magento\Framework\App\Cache\Type\Config $configCacheType,
-        \Magento\Directory\Model\ResourceModel\Region\CollectionFactory $regionCollectionFactory,
+        \Magento\Framework\View\Element\Template\Context                 $context,
+        \Magento\Directory\Helper\Data                                   $directoryHelper,
+        \Magento\Framework\Json\EncoderInterface                         $jsonEncoder,
+        \Magento\Framework\App\Cache\Type\Config                         $configCacheType,
+        \Magento\Directory\Model\ResourceModel\Region\CollectionFactory  $regionCollectionFactory,
         \Magento\Directory\Model\ResourceModel\Country\CollectionFactory $countryCollectionFactory,
-        \Magento\Framework\Module\Manager $moduleManager,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Model\Url $customerUrl,
-        array $data = [],
-        Config $newsLetterConfig = null,
-        Address $addressHelper = null
-    ) {
+        \Magento\Framework\Module\Manager                                $moduleManager,
+        \Magento\Customer\Model\Session                                  $customerSession,
+        \Magento\Customer\Model\Url                                      $customerUrl,
+        \Magento\Customer\Model\FlagFactory                              $flagFactory,
+        array                                                            $data = [],
+        Config                                                           $newsLetterConfig = null,
+        Address                                                          $addressHelper = null
+    )
+    {
         $data['addressHelper'] = $addressHelper ?: ObjectManager::getInstance()->get(Address::class);
         $data['directoryHelper'] = $directoryHelper;
         $this->_customerUrl = $customerUrl;
@@ -88,6 +92,8 @@ class Register extends \Magento\Directory\Block\Data
             $data
         );
         $this->_isScopePrivate = false;
+
+        $this->flagFactory = $flagFactory;
     }
 
     /**
@@ -146,6 +152,32 @@ class Register extends \Magento\Directory\Block\Data
             $this->setData('form_data', $data);
         }
         return $data;
+    }
+
+    public function getNickname()
+    {
+
+        $formData = $this->getFormData();
+        $formNickname = $formData->getNickname();
+        if ($formNickname){
+            return $formNickname;
+        }
+
+        $flag = $this->flagFactory->create();
+        $flag->loadSelf();
+
+        // read flag data
+        $suggestedNameSuffix = $flag->getFlagData();
+
+        if ($suggestedNameSuffix) {
+            $suggestedNameSuffix++;
+        } else {
+            $suggestedNameSuffix = 10000;
+        }
+        $flag->setFlagData($suggestedNameSuffix);
+        $flag->save();
+
+        return __('customer%1', $suggestedNameSuffix);
     }
 
     /**

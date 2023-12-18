@@ -32,6 +32,7 @@
         <column xsi:type="varchar" name="middlename" nullable="true" length="255" comment="Middle Name/Initial"/>
         <column xsi:type="varchar" name="lastname" nullable="true" length="255" comment="Last Name"/>
         <column xsi:type="varchar" name="suffix" nullable="true" length="40" comment="Name Suffix"/>
+        <column xsi:type="varchar" name="nickname" nullable="false" length="50" comment="Customer's Nickname"/>
         <column xsi:type="date" name="dob" comment="Date of Birth"/>
         <column xsi:type="varchar" name="password_hash" nullable="true" length="128" comment="Password_hash"/>
         <column xsi:type="varchar" name="rp_token" nullable="true" length="128" comment="Reset password token"/>
@@ -75,6 +76,9 @@
         </index>
         <index referenceId="CUSTOMER_ENTITY_LASTNAME" indexType="btree">
             <column name="lastname"/>
+        </index>
+        <index referenceId="CUSTOMER_ENTITY_NICKNAME" indexType="btree">
+            <column name="nickname"/>
         </index>
     </table>
     <table name="customer_address_entity" resource="default" engine="innodb" comment="Customer Address Entity">
