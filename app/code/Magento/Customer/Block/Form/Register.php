@@ -131,6 +131,10 @@ class Register extends \Magento\Directory\Block\Data
         return $url;
     }
 
+    public function getLoginUrl(){
+        return $this->_customerUrl->getLoginUrl();
+    }
+
     /**
      * Retrieve form data
      *

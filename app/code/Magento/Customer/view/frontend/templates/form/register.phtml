@@ -343,6 +343,9 @@ $createAccountButtonViewModel = $block->getData('create_account_button_view_mode
                 </button>
             </div>
             <div class="secondary">
+                <a class="action action-remind" href="<?= $escaper->escapeUrl($block->getLoginUrl()) ?>">
+                    <span><?= $escaper->escapeHtml(__('Already have an account? Sign in.')) ?></span>
+                </a>
                 <a class="action back"
                    href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
                     <span><?= $escaper->escapeHtml(__('Back')) ?></span>
