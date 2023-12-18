@@ -49,6 +49,7 @@ class Customer implements SectionSourceInterface
         return [
             'fullname' => $this->customerViewHelper->getCustomerName($customer),
             'firstname' => $customer->getFirstname(),
+            'nickname' => $customer->getNickname(),
             'websiteId' => $customer->getWebsiteId(),
         ];
     }

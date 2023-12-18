@@ -12,13 +12,13 @@ $welcomeMessage = $block->getWelcome();
 ?>
 <?php if ($block->getShowPart() == 'welcome'): ?>
     <li class="greet welcome" data-bind="scope: 'customer'">
-        <!-- ko if: customer().fullname  -->
+        <!-- ko if: customer().nickname  -->
         <span class="logged-in"
               data-bind="text: new String('<?= $escaper->escapeHtml(__('Welcome, %1!', '%1')) ?>').
-              replace('%1', customer().fullname)">
+              replace('%1', customer().nickname)">
         </span>
         <!-- /ko -->
-        <!-- ko ifnot: customer().fullname  -->
+        <!-- ko ifnot: customer().nickname  -->
         <span class="not-logged-in"
               data-bind="text: '<?= $escaper->escapeHtml($welcomeMessage) ?>'"></span>
         <?= $block->getBlockHtml('header.additional') ?>
