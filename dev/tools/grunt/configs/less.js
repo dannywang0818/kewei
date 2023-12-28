@@ -5,13 +5,13 @@
 
 'use strict';
 
-var combo  = require('./combo'),
+var combo = require('./combo'),
     themes = require('../tools/files-router').get('themes'),
-    _      = require('underscore');
+    _ = require('underscore');
 
 var themeOptions = {};
 
-_.each(themes, function(theme, name) {
+_.each(themes, function (theme, name) {
     themeOptions[name] = {
         files: combo.lessFiles(name)
     };
@@ -23,7 +23,9 @@ var lessOptions = {
         strictImports: false,
         sourceMapRootpath: '/',
         dumpLineNumbers: false, // use 'comments' instead false to output line comments for source
-        ieCompat: false
+        ieCompat: false,
+
+        sourceMapFileInline: true
     },
     setup: {
         files: {
