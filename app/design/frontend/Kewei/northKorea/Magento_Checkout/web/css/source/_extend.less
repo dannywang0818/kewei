@@ -1,0 +1,24 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+& when (@media-common = true) {
+
+    .cart.table-wrapper {
+        thead .col.item {
+            text-align: center;
+        }
+
+        .col.checkbox .label {
+            &:extend(.abs-visually-hidden all);
+        }
+    }
+
+    .cart.table-wrapper .col.checkbox input[type="checkbox"] {
+        .lib-form-element-choice(@_type: input-checkbox);
+        .lib-form-element-input(@_type: select, @_height:22px,
+            @_width:22px);
+    }
+}
