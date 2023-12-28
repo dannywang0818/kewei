@@ -18,6 +18,31 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
 ?>
 <tbody class="cart item">
     <tr class="item-info">
+
+        <td class="col checkbox" data-th="">
+            <div class="field checkbox">
+                <div class="control checkbox">
+                    <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-checkbox">
+                        <span class="label"><?= $block->escapeHtml(__('Checkbox')) ?></span>
+                        <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-checkbox"
+                               name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][checkbox]"
+                               data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                               value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                               type="checkbox"
+                               min="0"
+                               size="4"
+                               step="any"
+                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="{required:true,'validate-greater-than-zero':true}"
+                               data-item-qty="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                               data-role="cart-item-qty"/>
+                    </label>
+                </div>
+            </div>
+        </td>
+
+
         <td data-th="<?= $block->escapeHtml(__('Item')) ?>" class="col item">
             <?php if ($block->hasProductUrl()): ?>
                 <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
