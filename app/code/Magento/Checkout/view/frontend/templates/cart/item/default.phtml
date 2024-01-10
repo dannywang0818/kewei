@@ -29,14 +29,10 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
                            data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
                            value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
                            type="checkbox"
-                           min="0"
-                           size="4"
-                           step="any"
                            title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
                            class="input-text qty"
-                           data-validate="{required:true,'validate-greater-than-zero':true}"
-                           data-item-qty="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
-                           data-role="cart-item-qty"/>
+                           data-validate="{}"
+                           data-role="cart-item-checkbox"/>
                 </label>
             </div>
         </div>
