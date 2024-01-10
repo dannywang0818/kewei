@@ -11,14 +11,74 @@
             text-align: center;
         }
 
-        .col.checkbox .label {
-            &:extend(.abs-visually-hidden all);
-        }
-    }
+        tbody {
+            .col.checkbox {
+                input[type="checkbox"] {
+                    .lib-form-element-choice(@_type: input-checkbox);
+                    .lib-form-element-input(@_type: select, @_height:22px,
+                        @_width:22px);
+                }
 
-    .cart.table-wrapper .col.checkbox input[type="checkbox"] {
-        .lib-form-element-choice(@_type: input-checkbox);
-        .lib-form-element-input(@_type: select, @_height:22px,
-            @_width:22px);
+                .label {
+                    &:extend(.abs-visually-hidden all);
+                }
+            }
+
+            .col.qty {
+
+                .input-block.field.qty {
+                    display: flex;
+                    float: right;
+
+                    > :not(:first-child) {
+                        margin-left: -1px;
+                    }
+
+                    //float: right;
+                    //display: table-cell;
+                    .plus {
+                        .lib-button(
+                            @_button-icon-use: true,
+                            @_button-font-content: @icon-expand,
+                            @_button-icon-font-text-hide: true,
+                            @_button-icon-font-size:16px
+                        );
+                        padding: 7px;
+                        margin-left: -1px;
+                        /*.lib-icon-font(
+                            @icon-expand,
+                            @_icon-font-size: 16px
+                        );
+*/
+                    }
+
+                    .minus {
+                        /*.lib-icon-font(
+                            @icon-collapse,
+                            @_icon-font-size: 16px
+                        );*/
+                        .lib-button(
+                            @_button-icon-use: true,
+                            @_button-font-content: @icon-collapse,
+                            @_button-icon-font-text-hide: true,
+                            @_button-icon-font-size:16px
+                        );
+                        padding: 7px;
+                    }
+
+
+                    .action {
+                        height: 36px;
+                        border-radius: 0;
+                    }
+
+                    //display: table-cell;
+                    //float: right;
+                    .input-text {
+                        margin-top: 0px;
+                    }
+                }
+            }
+        }
     }
 }
