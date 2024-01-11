@@ -11,13 +11,13 @@
 <?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
 <form action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
-          method="post"
-          id="form-validate"
-          data-mage-init='{"Magento_Checkout/js/action/update-shopping-cart":
+      method="post"
+      id="form-validate"
+      data-mage-init='{"Magento_Checkout/js/action/update-shopping-cart":
               {"validationURL" : "<?= $block->escapeUrl($block->getUrl('checkout/cart/updateItemQty')) ?>",
               "updateCartActionContainer": "#update_cart_action_container"}
           }'
-          class="form form-cart">
+      class="form form-cart">
     <?= $block->getBlockHtml('formkey') ?>
     <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
         <?php if ($block->getPagerHtml()): ?>
@@ -31,13 +31,13 @@
                "updateCartActionContainer": "#update_cart_action_container"}}'>
             <caption class="table-caption"><?= $block->escapeHtml(__('Shopping Cart Items')) ?></caption>
             <thead>
-                <tr>
-                    <th class="col checkbox" scope="col"><span></span></th>
-                    <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
-                    <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
-                    <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
-                </tr>
+            <tr>
+                <th class="col checkbox" scope="col"><span></span></th>
+                <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
+                <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
+                <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
+                <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
+            </tr>
             </thead>
             <?php foreach ($block->getItems() as $_item): ?>
                 <?= $block->getItemHtml($_item) ?>
@@ -80,3 +80,33 @@
 </form>
 <?= $block->getChildHtml('checkout.cart.order.actions') ?>
 <?= $block->getChildHtml('shopping.cart.table.after') ?>
+
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $(function () { // to ensure that code evaluates on page load
+
+            $('.action.plus').on("click", function () {
+                let $qty = $(this).prev().find('input');
+                let v = new Number($qty.val());
+                if (v + 1 > 1) {
+                    $(this).parent().children('.action.minus').prop('disabled', false);
+                }
+                $qty.val(v + 1);
+            });
+
+            console.log('@@@@@@@@@@@');
+            $('.action.minus').on("click", function () {
+                console.log('!!!!!!!');
+                let $qty = $(this).next().find('input');
+                let v = new Number($qty.val());
+                if (v - 1 === 1) {
+                    $(this).prop('disabled', true);
+                }
+                $qty.val(v - 1);
+            });
+        });
+    });
+</script>
