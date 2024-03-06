@@ -41,6 +41,8 @@ class View extends \Magento\Catalog\Block\Product\View
      * @param \Magento\Customer\Model\Session $customerSession
      * @param ProductRepositoryInterface $productRepository
      * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+     * @param \Magento\Customer\Model\Url $customerUrl
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param \Magento\Review\Model\ResourceModel\Review\CollectionFactory $collectionFactory
      * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -56,6 +58,8 @@ class View extends \Magento\Catalog\Block\Product\View
         \Magento\Customer\Model\Session $customerSession,
         ProductRepositoryInterface $productRepository,
         \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
+        \Magento\Customer\Model\Url $customerUrl,
+        \Magento\Framework\App\Http\Context $httpContext,
         \Magento\Review\Model\ResourceModel\Review\CollectionFactory $collectionFactory,
         array $data = []
     ) {
@@ -71,6 +75,8 @@ class View extends \Magento\Catalog\Block\Product\View
             $customerSession,
             $productRepository,
             $priceCurrency,
+            $customerUrl,
+            $httpContext,
             $data
         );
     }
