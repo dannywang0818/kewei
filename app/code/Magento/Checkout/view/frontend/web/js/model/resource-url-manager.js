@@ -52,6 +52,23 @@ define([
              * @param {Object} quote
              * @return {*}
              */
+            getUrlForKeweiCartManagement: function (quote) {
+                var params = this.getCheckoutMethod() == 'guest' ? //eslint-disable-line eqeqeq
+                        {
+                            quoteId: quote.getQuoteId()
+                        } : {},
+                    urls = {
+                        'guest': '/kewei/carts/mine',
+                        'customer': '/kewei/carts/mine'
+                    };
+
+                return this.getUrl(urls, params);
+            },
+
+            /**
+             * @param {Object} quote
+             * @return {*}
+             */
             getUrlForEstimationShippingMethodsByAddressId: function (quote) {
                 var params = this.getCheckoutMethod() == 'guest' ? //eslint-disable-line eqeqeq
                         {

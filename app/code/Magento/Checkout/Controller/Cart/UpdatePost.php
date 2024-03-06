@@ -8,6 +8,7 @@ namespace Magento\Checkout\Controller\Cart;
 use Magento\Checkout\Model\Cart\RequestQuantityProcessor;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Checkout\Api\KeweiCartInterface;
 
 /**
  * Post update shopping cart.
@@ -18,6 +19,11 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
      * @var RequestQuantityProcessor
      */
     private $quantityProcessor;
+
+    /**
+     * @var KeweiCartInterface
+     */
+    private $cartManagement;
 
     /**
      * @param \Magento\Framework\App\Action\Context $context
@@ -35,6 +41,7 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \Magento\Checkout\Model\Cart $cart,
+        \Magento\Checkout\Api\KeweiCartInterface $cartManagement,
         RequestQuantityProcessor $quantityProcessor = null
     ) {
         parent::__construct(
@@ -45,6 +52,7 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
             $formKeyValidator,
             $cart
         );
+        $this->cartManagement = $cartManagement;
 
         $this->quantityProcessor = $quantityProcessor ?: $this->_objectManager->get(RequestQuantityProcessor::class);
     }
@@ -70,7 +78,7 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
      *
      * @return void
      */
-    protected function _updateShoppingCart()
+   /* protected function _updateShoppingCart()
     {
         try {
             $cartData = $this->getRequest()->getParam('cart');
@@ -90,7 +98,7 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
             $this->messageManager->addExceptionMessage($e, __('We can\'t update the shopping cart.'));
             $this->_objectManager->get(\Psr\Log\LoggerInterface::class)->critical($e);
         }
-    }
+    }*/
 
     /**
      * Update shopping cart data action
@@ -105,15 +113,19 @@ class UpdatePost extends \Magento\Checkout\Controller\Cart implements HttpGetAct
 
         $updateAction = (string)$this->getRequest()->getParam('update_cart_action');
 
+        $cartData = $this->getRequest()->getParam('cart');
+
         switch ($updateAction) {
             case 'empty_cart':
                 $this->_emptyShoppingCart();
                 break;
             case 'update_qty':
-                $this->_updateShoppingCart();
+                $this->cartManagement->updateShoppingCart($cartData);
+//                $this->_updateShoppingCart();
                 break;
             default:
-                $this->_updateShoppingCart();
+                $this->cartManagement->updateShoppingCart($cartData);
+//                $this->_updateShoppingCart();
         }
 
         return $this->_goBack();

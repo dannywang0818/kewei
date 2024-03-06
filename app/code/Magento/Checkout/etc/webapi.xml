@@ -114,4 +114,16 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
+
+
+    <!-- Kewei custom actions -->
+    <route url="/V1/kewei/carts/mine" method="PUT">
+        <service class="Magento\Checkout\Api\KeweiCartInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
 </routes>
