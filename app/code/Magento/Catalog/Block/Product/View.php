@@ -88,6 +88,8 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
      * @param \Magento\Customer\Model\Session $customerSession
      * @param ProductRepositoryInterface|\Magento\Framework\Pricing\PriceCurrencyInterface $productRepository
      * @param \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency
+     * @param \Magento\Customer\Model\Url $customerUrl
+     * @param \Magento\Framework\App\Http\Context $httpContext
      * @param array $data
      * @codingStandardsIgnoreStart
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -381,6 +383,7 @@ class View extends AbstractProduct implements \Magento\Framework\DataObject\Iden
 
     public function isLoggedIn()
     {
+
         return $this->httpContext->getValue(Context::CONTEXT_AUTH);
     }
 }
